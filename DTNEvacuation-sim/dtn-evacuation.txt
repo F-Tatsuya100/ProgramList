@@ -1,0 +1,124 @@
+## Scenario settings
+Scenario.name = test_scenario1
+Scenario.simulateConnections = true
+Scenario.updateInterval = 0.1
+# 43200s == 12h
+# 28800s == 8h
+# 21600s == 6h
+Scenario.endTime = 14400
+Scenario.evacuationMode = Proposed
+Scenario.tileSizeX = 100
+Scenario.tileSizeY = 100
+Scenario.templateTileSizeX = 2 
+Scenario.templateTileSizeY = 2 
+Scenario.areaTileSizeX = 10
+Scenario.areaTileSizeY = 10
+Scenario.startFlyTime = 100
+
+# WiFi80211g
+WiFi80211g.type = SimpleBroadcastInterface
+WiFi80211g.transmitSpeed = 54000k
+WiFi80211g.transmitRange = 100
+
+# Common settings for all groups
+#Scenario.nrofHostGroups = 2
+#Scenario.nrofHostGroups = 3
+Scenario.nrofHostGroups = 4
+Group.movementModel = RandomWalk
+Group.router = EpidemicRouter
+#Group.bufferSize = 5k
+Group.bufferSize = 2G
+#Group.waitTime = 0, 120
+Group.waitTime = 0,1
+
+# Walking speeds
+#Group.speed = 0.5, 1.5
+Group1.speed = 1.0, 2.0
+Group2.speed = 4.0, 4.0
+Group3.speed = 1.0, 1.0
+Group4.speed = 1.0, 1.0
+# Message TTL of 300 minutes (5 hours)
+Group.msgTtl = 3000
+
+# people
+Group1.groupID = P
+Group1.safetyFlag = false
+Group1.nrofHosts = 50
+Group1.movementModel = RandomWalk
+Group1.nodeLocation = 1000,1000
+Group1.router = EpidemicRouter
+Group1.nrofInterfaces = 1
+Group1.interface1 = WiFi80211g
+
+# drone
+Group2.groupID = D
+Group2.safetyFlag = false
+Group2.nrofHosts = 1
+Group2.movementModel = RandomWalk
+Group2.nodeLocation = 1000,1000
+Group2.router = EpidemicRouter
+Group2.nrofInterfaces = 1
+Group2.interface1 = WiFi80211g
+Group2.bufferSize = 0
+
+# access point
+Group3.groupID = AP
+Group3.safetyFlag = true
+Group3.nrofHosts = 1
+Group3.movementModel = StationaryMovement
+Group3.nodeLocation = 1000,1000
+Group3.router = EpidemicRouter
+Group3.nrofInterfaces = 1
+Group3.interface1 = WiFi80211g
+
+# communicator
+Group4.groupID = CM
+Group4.safetyFlag = false
+Group4.nrofHosts = 16
+Group4.movementModel = StationaryMovement
+Group4.nodeLocation = 1000,1000
+Group4.router = EpidemicRouter
+Group4.nrofInterfaces = 1
+Group4.interface1 = WiFi80211g
+
+
+## Movement model settings
+# seed for movement models' pseudo random number generator (default = 0)
+MovementModel.rngSeed = 1003
+# World's size for Movement Models without implicit size (width, height; meters)
+MovementModel.worldSize = 2000, 2000
+MovementModel.initialRangeX = 2000
+MovementModel.initialRangeY = 2000
+# How long time to move hosts in the world before real simulation
+## Message creation parameters 
+# How many event generators
+Events.nrof = 1
+# Class of the first event generator
+Events1.class = MessageEventGenerator
+# (following settings are specific for the MessageEventGenerator class)
+# Creation interval in seconds (one new message every 25 to 35 seconds)
+#Events1.interval = 25,35
+Events1.interval = 10
+# Message sizes (500kB - 1MB)
+#Events1.size = 500k,1M
+Events1.size = 1k
+# range of message source/destination addresses
+Events1.hosts = 0,68
+# Message ID prefix
+Events1.prefix = M
+
+## Reports - all report names have to be valid report classes
+
+# how many reports to load
+Report.nrofReports = 1
+# length of the warm up period (simulated seconds)
+Report.warmup = 0
+# default directory of reports (can be overridden per Report with output setting)
+Report.reportDir = reports/test_scenario
+# Report classes to load
+Report.report1 = MessageStatsReport
+
+## Optimization settings -- these affect the speed of the simulation
+## see World class for details.
+Optimization.cellSizeMult = 5
+Optimization.randomizeUpdateOrder = true
